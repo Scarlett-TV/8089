@@ -24,6 +24,7 @@ The process is divided into three main steps:
 1. Input a prompt, and the model generates a reply.
 2. Score the responses using a reward model.
 3. Optimize the policy with a round of reinforcement learning using PPO, based on the score.
+![image](https://github.com/Scarlett-TV/8089/blob/master/img/pipe.png)
 ```shell
 python ppo_new.py
 ```
