@@ -9,7 +9,21 @@ Training MedicalGPT model：
 
 # Training Pipline
 ## Stage 1: Supervised Fine-tuning
-Based on the llSourcell/medllama2_7b model, the Supervised Fine-tuning model is obtained by using medical question-and-answer data for supervised fine-tuning. 
+Based on the [llSourcell/medllama2_7b](https://huggingface.co/llSourcell/medllama2_7b) model, the Supervised Fine-tuning model is obtained by using medical question-and-answer data for supervised fine-tuning. 
 ```shell
 python doctor_gpt.py
+```
+## Stage 2: Reward Model
+In principle, we can directly use human annotations to fine-tune the model with RLHF. However, due to the time limitation, we choose a pretrained reward model [OpenAssistant/reward-model-deberta-v3-large-v2](https://huggingface.co/OpenAssistant/reward-model-deberta-v3-large-v2)
+
+## Stage 3: Reinforcement Learning
+The RL (Reinforcement Learning) model aims to maximize the output of the reward model. With a fine-tuned language model and reward model, the RL loop is now prepared for execution.
+
+The process is divided into three main steps:
+
+1. Input a prompt, and the model generates a reply.
+2. Score the responses using a reward model.
+3. Optimize the policy with a round of reinforcement learning using PPO, based on the score.
+```shell
+python ppo_new.py
 ```
